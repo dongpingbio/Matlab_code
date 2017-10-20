@@ -1,12 +1,13 @@
-close all;
-clear all;
-clc;
+function Mice_trajectory(movie_input_filename)
+% close all;
+% clear all;
+% clc;
 
 % This program is used to analysis the animal trajectory based on the video
 % taken previewously
 
 % Load the movie
-filename='4#_Video_flight.mov';
+filename=movie_input_filename;
 
 % Load movie_raw_data
 E_M_movie = VideoReader(filename,'Tag','My reader object');
@@ -23,11 +24,21 @@ background_frame=I_background;
 hf = figure(1);
 set(hf, 'position', [150 150 vidWidth vidHeight])
 imshow(I_background);
-[a_xLeft, a_xRight, a_yUp, a_yDown,a_x,a_y,a_w,a_h]=ManualDraw_analysisArea;
-
+% [a_xLeft, a_xRight, a_yUp, a_yDown,a_x,a_y,a_w,a_h]=ManualDraw_analysisArea;
+% variation only for multi-operation
+a_xLeft=78;
+a_xRight=253;
+a_yUp=32;
+a_yDown=204;
+a_x=78;
+a_y=32;
+a_w=175;
+a_h=172;
 % Manual input the length of drawed line
-Ruler_p=ManualDraw_Ruler();
-draw_length=input('Please enter the length of the Line (cm)£º');
+% Ruler_p=ManualDraw_Ruler();
+Ruler_p=166;
+% draw_length=input('Please enter the length of the Line (cm)£º');
+draw_length=16.5;
 % Calculate the length per pixels
 len_per_pixels=draw_length/Ruler_p;
 
@@ -100,7 +111,7 @@ for idx = first_analysis_frame:frame_sample_interval:nFrames
     % plot the central point and the trajectory of the mouse
     rectangle('Position',[a_x,a_y,a_w,a_h],'EdgeColor','k','LineWidth',2);
     plot(mice_x,mice_y, 'g+', 'MarkerSize', 10);
-    plot(c_pos_sum(:,1),c_pos_sum(:,2),'r');
+    plot(c_pos_sum(:,1),c_pos_sum(:,2),'r','LineWidth',2);
     if idx==first_analysis_frame
         disp('begin')
     else
@@ -109,6 +120,8 @@ for idx = first_analysis_frame:frame_sample_interval:nFrames
     hold off;
     
 end
+trace_fig_name=['trace_',filename(1:end-4)];
+saveas(gcf,trace_fig_name,'tif');
 
 % Calculate averange speed per second
 nlen=length(r_vel);
@@ -118,6 +131,8 @@ for i=1:ntime
 end
 figure(03)
 plot(aver_vel)
+vel_fig_name=['vel_',filename(1:end-4)];
+saveas(gcf,vel_fig_name,'tif')
 vel_file_name=['Speed_',filename(1:end-4),'.xls'];
 xlswrite(vel_file_name,aver_vel');
 
