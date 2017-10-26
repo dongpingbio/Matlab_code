@@ -26,14 +26,24 @@ set(hf, 'position', [150 150 vidWidth vidHeight])
 imshow(I_background);
 % [a_xLeft, a_xRight, a_yUp, a_yDown,a_x,a_y,a_w,a_h]=ManualDraw_analysisArea;
 % variation only for multi-operation
-a_xLeft=78;
-a_xRight=253;
-a_yUp=32;
-a_yDown=204;
-a_x=78;
-a_y=32;
-a_w=175;
-a_h=172;
+% % for square
+% a_xLeft=69;
+% a_xRight=265;
+% a_yUp=28;
+% a_yDown=207;
+% a_x=69;
+% a_y=28;
+% a_w=196;
+% a_h=179;
+% for rectancle
+a_xLeft=16;
+a_xRight=297;
+a_yUp=10;
+a_yDown=226;
+a_x=16;
+a_y=10;
+a_w=281;
+a_h=216;
 % Manual input the length of drawed line
 % Ruler_p=ManualDraw_Ruler();
 Ruler_p=166;
